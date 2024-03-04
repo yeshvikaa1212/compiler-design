@@ -1,0 +1,22 @@
+%{
+#include <stdio.h>
+int ln = 0;
+extern FILE *yyin, *yyout;
+%}
+
+%%
+.* { ln++; fprintf(yyout, "\n%d:%s", ln, yytext); }
+%%
+
+int yywrap() {
+    return 1;  // Indicate that there are no more files to parse
+}
+
+int main() {
+    yyin = fopen("simple.txt", "r");
+    yyout = fopen("out.txt", "w");
+    yylex();
+    fclose(yyin);
+    fclose(yyout);
+    return 0;
+}
