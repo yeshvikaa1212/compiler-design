@@ -1,0 +1,20 @@
+%{
+#include<stdio.h>
+%}
+
+%%
+bool|int|float|main|printf|char|double|void|if|while|for|do|return|else|elseif {printf("\n%s is a Keyword", yytext);}
+[-+]?[0-9]+ {printf("\n%s is a number", yytext);}
+[,.;]+ {printf("\n%s is a Punctuation Chars", yytext);}
+\"[a-zA-Z]+\" {printf("\n%s is a string", yytext);}
+[!%^&+*()]+ {printf("\n%s is a mathematical operator", yytext);}
+[a-zA-Z_][a-zA-Z0-9_]* { printf("Identifier: %s\n", yytext); }
+%%
+int yywrap() {
+    return 1;
+}
+
+int main() {
+    yylex();
+    return 0;
+}
