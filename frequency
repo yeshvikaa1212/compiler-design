@@ -1,0 +1,24 @@
+%{
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_WORD_LENGTH 100
+%}
+
+%option noyywrap
+
+%%
+[a-zA-Z]+ {
+    char word[MAX_WORD_LENGTH];
+    strncpy(word, yytext, yyleng);
+    word[yyleng] = '\0';
+    printf("Word: %s\n", word);
+    // Increment frequency count or store word in data structure for further processing
+}
+.|\n    // Ignore all other characters
+%%
+
+int main() {
+    yylex();
+    return 0;
+}
