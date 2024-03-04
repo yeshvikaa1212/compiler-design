@@ -1,0 +1,25 @@
+%{
+#include <stdio.h> // Include necessary header file for input/output functions
+%}
+
+%%
+
+[0-9][0-9]V[0-1][0-9]V[1-2][0-9]{3} {
+    printf("Valid"); // Print "Valid" if the pattern matches
+}
+
+.+ {
+    printf("Invalid"); // Print "Invalid" for any other input
+}
+
+%%
+
+int yywrap() {
+    return 1; // Indicate that there are no more files to be read
+}
+
+int main() {
+    yylex(); // Call the lexer
+    return 0; // Return success
+}
+
